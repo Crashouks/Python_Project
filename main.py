@@ -1,10 +1,11 @@
-from menu import run_menu
-from sample_data import load_sample_data
+from app import RouteApp
 
 
 def main():
-    load_sample_data()
-    run_menu()
+    try:
+        RouteApp().run()
+    except (KeyboardInterrupt, EOFError):
+        print("\nПрограму перервано.")
 
 
 if __name__ == "__main__":

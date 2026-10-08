@@ -1,4 +1,21 @@
 MIN_RATING = 1
 MAX_RATING = 10
 HIGH_RATING = 9
+
 MIN_LENGTH_KM = 0.1
+MAX_LENGTH_KM = 40000
+
+MAX_NAME_LENGTH = 100
+MAX_DESCRIPTION_LENGTH = 1000
+
+MIN_ELEVATION_M = 0
+MAX_ELEVATION_M = 10000
+
+MIN_STOPS = 1
+MAX_STOPS = 100
+
+DIFFICULTY_LEVELS = ("легкий", "середній", "складний")
+BIKE_TYPES = ("шосейний", "гірський", "міський")
+
+DATA_FILE = "routes.json"
+DEMO_FILE = "demo_routes.json"

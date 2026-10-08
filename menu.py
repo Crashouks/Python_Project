@@ -1,39 +1,46 @@
-import actions
+from dataclasses import dataclass
+from typing import Callable
 
-EXIT_CHOICE = "0"
-
-MENU_ITEMS = {
-    "1": ("Додати маршрут", actions.handle_add),
-    "2": ("Показати всі маршрути", actions.handle_show_all),
-    "3": ("Пошук за ID", actions.handle_search_by_id),
-    "4": ("Пошук за назвою", actions.handle_search_by_name),
-    "5": ("Пошук за країною", actions.handle_search_by_country),
-    "6": ("Фільтр за протяжністю", actions.handle_filter_by_length),
-    "7": ("Фільтр за середнім балом", actions.handle_filter_by_rating),
-    "8": ("Сортувати за рейтингом", actions.handle_sort_by_rating),
-    "9": ("Сортувати за протяжністю", actions.handle_sort_by_length),
-    "10": ("Редагувати маршрут", actions.handle_edit),
-    "11": ("Видалити маршрут", actions.handle_delete),
-    "12": ("Статистика", actions.handle_statistics),
-}
+from exceptions import RouteError
 
 
-def print_menu():
-    print("==== Туристичні маршрути ====")
-    for key, (title, _) in MENU_ITEMS.items():
-        print(f"{key}. {title}")
-    print(f"{EXIT_CHOICE}. Вихід")
+@dataclass(frozen=True)
+class MenuItem:
+    title: str
+    handler: Callable
 
 
-def run_menu():
-    while True:
-        print_menu()
-        choice = input("Ваш вибір: ").strip()
+class Menu:
+    EXIT_CHOICE = "0"
 
-        if choice in MENU_ITEMS:
-            MENU_ITEMS[choice][1]()
-        elif choice == EXIT_CHOICE:
-            print("Вихід з програми...")
-            break
-        else:
-            print("Невірний вибір, спробуйте ще раз.\n")
+    def __init__(self, title, items, can_exit=None):
+        self._title = title
+        self._items = {str(number): item for number, item in enumerate(items, start=1)}
+        self._can_exit = can_exit
+
+    def _print(self):
+        print(f"==== {self._title} ====")
+        for number, item in self._items.items():
+            print(f"{number}. {item.title}")
+        print(f"{self.EXIT_CHOICE}. Вихід")
+
+    @staticmethod
+    def _run_item(item):
+        try:
+            item.handler()
+        except RouteError as error:
+            print(f"Помилка: {error}\n")
+
+    def run(self):
+        while True:
+            self._print()
+            choice = input("Ваш вибір: ").strip()
+
+            if choice in self._items:
+                self._run_item(self._items[choice])
+            elif choice == self.EXIT_CHOICE:
+                if self._can_exit is None or self._can_exit():
+                    print("Вихід з програми...")
+                    break
+            else:
+                print("Невірний вибір, спробуйте ще раз.\n")
