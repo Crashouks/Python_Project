@@ -1,5 +1,5 @@
-from exceptions import ValidationError
-from models import BusTour, CyclingRoute, HikingRoute, Route
+from tourist_routes.core.exceptions import ValidationError
+from tourist_routes.core.models import BusTour, CyclingRoute, HikingRoute, Route
 
 ROUTE_CLASSES = {
     route_class.__name__: route_class

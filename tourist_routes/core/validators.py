@@ -1,7 +1,7 @@
 import math
 
-from config import MAX_NAME_LENGTH, MAX_RATING, MIN_RATING
-from exceptions import ValidationError
+from tourist_routes.core.config import MAX_NAME_LENGTH, MAX_RATING, MIN_RATING
+from tourist_routes.core.exceptions import ValidationError
 
 
 def validate_text(value, field_name, max_length=None):

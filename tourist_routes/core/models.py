@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from config import (
+from tourist_routes.core.config import (
     BIKE_TYPES,
     DIFFICULTY_LEVELS,
     MAX_DESCRIPTION_LENGTH,
@@ -13,7 +13,7 @@ from config import (
     MIN_LENGTH_KM,
     MIN_STOPS,
 )
-from validators import (
+from tourist_routes.core.validators import (
     parse_number,
     validate_choice,
     validate_integer,

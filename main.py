@@ -1,4 +1,4 @@
-from app import RouteApp
+from tourist_routes.cli.app import RouteApp
 
 
 def main():

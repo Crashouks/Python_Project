@@ -1,4 +1,4 @@
-from config import HIGH_RATING
+from tourist_routes.core.config import HIGH_RATING
 
 
 class RouteStatistics:

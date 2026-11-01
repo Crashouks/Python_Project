@@ -1,4 +1,4 @@
-from config import MAX_DESCRIPTION_LENGTH, MAX_LENGTH_KM, MAX_NAME_LENGTH, MIN_LENGTH_KM
+from tourist_routes.core.config import MAX_DESCRIPTION_LENGTH, MAX_LENGTH_KM, MAX_NAME_LENGTH, MIN_LENGTH_KM
 
 
 class RouteForm:

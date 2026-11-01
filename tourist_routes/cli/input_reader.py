@@ -1,7 +1,7 @@
-from config import MAX_RATING, MIN_RATING
-from exceptions import ValidationError
-from factory import list_route_classes
-from validators import parse_number, parse_ratings, validate_number, validate_text
+from tourist_routes.core.config import MAX_RATING, MIN_RATING
+from tourist_routes.core.exceptions import ValidationError
+from tourist_routes.core.factory import list_route_classes
+from tourist_routes.core.validators import parse_number, parse_ratings, validate_number, validate_text
 
 
 class InputReader:

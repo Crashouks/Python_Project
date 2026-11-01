@@ -17,5 +17,6 @@ MAX_STOPS = 100
 DIFFICULTY_LEVELS = ("легкий", "середній", "складний")
 BIKE_TYPES = ("шосейний", "гірський", "міський")
 
-DATA_FILE = "routes.json"
-DEMO_FILE = "demo_routes.json"
+DATA_FILE = "data/routes.json"
+DEMO_FILE = "data/demo_routes.json"
+EXPORT_FILE = "data/processed/exported_routes.csv"

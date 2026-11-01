@@ -1,11 +1,13 @@
-from config import DATA_FILE, MAX_RATING, MIN_RATING
-from display import RoutePrinter
-from exceptions import StorageError
-from input_reader import InputReader
-from manager import RouteManager
-from menu import Menu, MenuItem
-from route_form import RouteForm
-from storage import JsonStorage
+import os
+
+from tourist_routes.core.config import DATA_FILE, EXPORT_FILE, MAX_RATING, MIN_RATING
+from tourist_routes.cli.display import RoutePrinter
+from tourist_routes.core.exceptions import StorageError
+from tourist_routes.cli.input_reader import InputReader
+from tourist_routes.core.manager import RouteManager
+from tourist_routes.cli.menu import Menu, MenuItem
+from tourist_routes.cli.route_form import RouteForm
+from tourist_routes.storage.json_storage import JsonStorage
 
 EMPTY_LIST_MESSAGE = "Список маршрутів порожній."
 
@@ -39,6 +41,8 @@ class RouteApp:
             MenuItem("Статистика", self.show_statistics),
             MenuItem("Зберегти у JSON-файл", self.save_to_file),
             MenuItem("Завантажити з JSON-файлу", self.load_from_file),
+            MenuItem("Аналіз даних (Pandas)", self.show_analytics),
+            MenuItem("Експорт у CSV", self.export_csv),
         ]
 
     def run(self):
@@ -172,3 +176,40 @@ class RouteApp:
         self._file_unreadable = False
         self._has_unsaved_changes = False
         print(f"Завантажено маршрутів: {len(self._manager)} (файл {self._storage.filename})\n")
+
+
+    def _routes_dataframe(self):
+        if len(self._manager) == 0:
+            print(EMPTY_LIST_MESSAGE + "\n")
+            return None
+        try:
+            from tourist_routes.analytics.converters import routes_to_dataframe
+        except ImportError:
+            print("Для цієї функції потрібен pandas: pip install -r requirements.txt\n")
+            return None
+        return routes_to_dataframe(self._manager.routes())
+
+    def show_analytics(self):
+        df = self._routes_dataframe()
+        if df is None:
+            return
+        from tourist_routes.analytics import analysis
+
+        print("\n--- Описова статистика (довжина, середній бал, тривалість) ---")
+        print(df[["length_km", "avg_rating", "duration_hours"]].describe().round(2).to_string())
+        print("\n--- Групування за типом маршруту ---")
+        print(analysis.by_type(df).to_string())
+        print("\n--- Групування за країною ---")
+        print(analysis.by_country(df)[["routes", "avg_length_km", "avg_rating"]].to_string())
+        print()
+
+    def export_csv(self):
+        df = self._routes_dataframe()
+        if df is None:
+            return
+        filename = EXPORT_FILE
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
+        df.drop(columns=["ratings_list", "price_eur", "date_added"]).to_csv(
+            filename, index=False, encoding="utf-8"
+        )
+        print(f"Експортовано маршрутів: {len(df)} (файл {filename})\n")

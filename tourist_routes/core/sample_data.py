@@ -1,4 +1,4 @@
-from models import BusTour, CyclingRoute, HikingRoute, Route
+from tourist_routes.core.models import BusTour, CyclingRoute, HikingRoute, Route
 
 
 def create_sample_routes():

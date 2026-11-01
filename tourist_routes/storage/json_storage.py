@@ -2,9 +2,9 @@ import contextlib
 import json
 import os
 
-from config import DATA_FILE
-from exceptions import StorageError, ValidationError
-from factory import route_from_dict
+from tourist_routes.core.config import DATA_FILE
+from tourist_routes.core.exceptions import StorageError, ValidationError
+from tourist_routes.core.factory import route_from_dict
 
 
 class JsonStorage:
@@ -19,6 +19,7 @@ class JsonStorage:
         data = [route.to_dict() for route in routes]
         temp_filename = f"{self._filename}.tmp"
         try:
+            os.makedirs(os.path.dirname(self._filename) or ".", exist_ok=True)
             with open(temp_filename, "w", encoding="utf-8") as file:
                 json.dump(data, file, ensure_ascii=False, indent=4)
             os.replace(temp_filename, self._filename)

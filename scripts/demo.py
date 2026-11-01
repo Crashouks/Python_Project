@@ -1,10 +1,15 @@
-from config import DEMO_FILE
-from display import RoutePrinter
-from exceptions import ValidationError
-from manager import RouteManager
-from models import CyclingRoute, HikingRoute, Route
-from sample_data import create_sample_routes
-from storage import JsonStorage
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from tourist_routes.core.config import DEMO_FILE
+from tourist_routes.cli.display import RoutePrinter
+from tourist_routes.core.exceptions import ValidationError
+from tourist_routes.core.manager import RouteManager
+from tourist_routes.core.models import CyclingRoute, HikingRoute, Route
+from tourist_routes.core.sample_data import create_sample_routes
+from tourist_routes.storage.json_storage import JsonStorage
 
 
 def demo_creation(manager, printer):

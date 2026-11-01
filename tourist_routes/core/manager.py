@@ -1,6 +1,6 @@
-from exceptions import RouteNotFoundError, ValidationError
-from models import Route
-from route_statistics import RouteStatistics
+from tourist_routes.core.exceptions import RouteNotFoundError, ValidationError
+from tourist_routes.core.models import Route
+from tourist_routes.core.route_statistics import RouteStatistics
 
 
 class RouteManager:

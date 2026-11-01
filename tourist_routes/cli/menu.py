@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Callable
 
-from exceptions import RouteError
+from tourist_routes.core.exceptions import RouteError
 
 
 @dataclass(frozen=True)
