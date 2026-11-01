@@ -9,6 +9,10 @@
 - **Збереження:** JSON-сховище, експорт у CSV.
 - **Аналітика (Pandas):** завантаження CSV, очищення, нові стовпці, групування, збереження результатів.
 - **Візуалізація:** 19 графіків (розподіли, викиди, категорії, кореляції, групування, динаміка в часі) з висновками.
+<<<<<<< Updated upstream
+=======
+- **REST API (FastAPI):** повний CRUD для маршрутів, пошук і фільтрація, база даних SQLite (SQLAlchemy), JWT-автентифікація, CORS, Swagger UI.
+>>>>>>> Stashed changes
 
 ## Структура
 
@@ -30,6 +34,17 @@ Python_Project/
 │   │   └── json_storage.py        # збереження/завантаження JSON
 │   ├── cli/                       # консольний інтерфейс
 │   │   └── app.py  menu.py  display.py  input_reader.py  route_form.py
+<<<<<<< Updated upstream
+=======
+│   ├── api/                       # REST API (FastAPI)
+│   │   ├── main.py                #   застосунок, CORS, підключення роутерів
+│   │   ├── config.py  database.py #   налаштування, підключення до БД (SQLAlchemy)
+│   │   ├── security.py            #   хешування паролів, JWT
+│   │   ├── dependencies.py        #   get_current_user (захист endpoints)
+│   │   ├── models/                #   ORM-моделі: RouteRecord, User
+│   │   ├── schemas/               #   Pydantic-схеми: RouteCreate/RouteRead, UserCreate, Token
+│   │   └── routers/               #   auth.py, routes.py
+>>>>>>> Stashed changes
 │   └── analytics/                 # робота з даними (Pandas)
 │       ├── generate_dataset.py    #   генерація «брудного» CSV (NumPy)
 │       ├── cleaning.py            #   дублікати, пропуски, текст, типи
@@ -48,9 +63,17 @@ Python_Project/
 │   ├── demo.py                    # демо роботи з класами маршрутів
 │   ├── run_pipeline.py            # конвеєр очищення й аналізу даних
 │   ├── build_figures.py           # виконання ноутбука візуалізації, збереження графіків
+<<<<<<< Updated upstream
 │   └── generate_dataset.py        # перегенерація датасету
 └── tests/
     └── test_analytics.py
+=======
+│   ├── run_api.py                 # запуск REST API (uvicorn)
+│   └── generate_dataset.py        # перегенерація датасету
+└── tests/
+    ├── test_analytics.py
+    └── test_api.py
+>>>>>>> Stashed changes
 ```
 
 ## Запуск
@@ -59,6 +82,10 @@ Python_Project/
 pip install -r requirements.txt
 
 python main.py                          # консольний застосунок (меню українською)
+<<<<<<< Updated upstream
+=======
+uvicorn tourist_routes.api.main:app --reload   # REST API: http://127.0.0.1:8000/docs
+>>>>>>> Stashed changes
 python scripts/demo.py                  # демо класів маршрутів
 python scripts/run_pipeline.py          # очищення й аналіз датасету -> data/processed/
 python scripts/build_figures.py         # перегенерувати всі графіки у figures/
@@ -77,3 +104,34 @@ python -m unittest discover -s tests    # тести
 - Аналіз: `describe`, розподіл категорій, фільтрація, сортування, групування за однією та двома змінними, зведена таблиця.
 - Інтеграція: меню застосунку аналізує/експортує поточні маршрути через pandas, а тест звіряє pandas-розрахунки з методами класів `Route`.
 - Візуалізація: гістограми з KDE, Box/Violin Plot, Count/Pie/Bar, Scatter із трендами, матриця кореляцій, Pair Plot, теплові карти, Line Plot у часі; датасет згенеровано, тому деякі залежності в ньому свідомо слабкі — це зазначено у висновках.
+<<<<<<< Updated upstream
+=======
+
+## REST API
+
+Запуск: `uvicorn tourist_routes.api.main:app --reload` (або `python scripts/run_api.py`), документація — `http://127.0.0.1:8000/docs`. При першому запуску створюється `data/api.db` (SQLite) і додаються демо-маршрути.
+
+| Метод | Шлях | Опис | Доступ |
+|---|---|---|---|
+| GET | `/` | повідомлення про роботу API | відкрито |
+| POST | `/auth/register` | реєстрація (201, 409 якщо ім'я зайняте) | відкрито |
+| POST | `/auth/login` | вхід (form-data `username`, `password`) → JWT | відкрито |
+| GET | `/auth/me` | поточний користувач | JWT |
+| GET | `/routes` | список; фільтри `name`, `country`, `type`, `min_length_km`, `max_length_km`, `skip`, `limit` | відкрито |
+| GET | `/routes/{id}` | один маршрут (404, якщо немає) | відкрито |
+| POST | `/routes` | створення (201) | JWT |
+| PUT | `/routes/{id}` | повна заміна даних | JWT |
+| DELETE | `/routes/{id}` | видалення (204) | JWT |
+
+Без дійсного токена захищені endpoints повертають `401 Unauthorized`; некоректні дані — `422`. Для авторизації в Swagger UI натисніть **Authorize** і введіть логін/пароль.
+
+Змінні середовища: `SECRET_KEY` (обов'язково змініть поза навчальним запуском), `DATABASE_URL`, `ACCESS_TOKEN_EXPIRE_MINUTES`, `CORS_ORIGINS` (через кому).
+
+Приклад:
+
+```bash
+curl -X POST http://127.0.0.1:8000/auth/register -H "Content-Type: application/json" -d '{"username":"traveler","password":"secret123"}'
+curl -X POST http://127.0.0.1:8000/auth/login -d "username=traveler&password=secret123"
+curl -X POST http://127.0.0.1:8000/routes -H "Authorization: Bearer <token>" -H "Content-Type: application/json" -d '{"type":"Route","name":"Прогулянка","country":"Україна","start_city":"Львів","length_km":5,"description":"Центр міста"}'
+```
+>>>>>>> Stashed changes
