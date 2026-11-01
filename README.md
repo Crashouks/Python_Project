@@ -7,6 +7,7 @@
 | ЛР 1 | Функції, списки, кортежі, словники | `tourist_routes/core`, `tourist_routes/cli` |
 | ЛР 2 | ООП: класи маршрутів, валідація, JSON-сховище | `tourist_routes/core/models.py`, `tourist_routes/storage` |
 | ЛР 3 | Pandas: CSV, очищення, аналіз, групування | `tourist_routes/analytics`, `notebooks/Lab3.ipynb`, `data/` |
+| ЛР 4 | Візуалізація: Matplotlib, Seaborn | `notebooks/Lab4.ipynb`, `figures/` |
 
 ## Структура
 
@@ -36,13 +37,16 @@ Python_Project/
 │       ├── converters.py         #   Route (ЛР 2) -> DataFrame
 │       └── pipeline.py           #   повний конвеєр CSV -> CSV
 ├── notebooks/
-│   └── Lab3.ipynb                # ноутбук ЛР 3 з виводами (Jupyter / Colab)
+│   ├── Lab3.ipynb                # ЛР 3: обробка даних у Pandas
+│   └── Lab4.ipynb                # ЛР 4: візуалізація даних (19 графіків, висновки)
+├── figures/                      # PNG-графіки ЛР 4 (01_histograms.png ... 19_pairplot.png)
 ├── data/
 │   ├── raw/routes_dataset.csv    # вхідний датасет
 │   └── processed/                # результати: processed_routes.csv, grouped_country_type.csv
 ├── scripts/
 │   ├── demo.py                   # демо ЛР 2
 │   ├── run_lab3.py               # запуск конвеєра ЛР 3
+│   ├── run_lab4.py               # виконання ноутбука ЛР 4 і збереження графіків
 │   └── generate_dataset.py       # перегенерація датасету
 └── tests/
     └── test_lab3.py
@@ -56,6 +60,8 @@ pip install -r requirements.txt
 python main.py                    # консольний застосунок (меню українською)
 python scripts/run_lab3.py        # ЛР 3: очищення й аналіз датасету -> data/processed/
 jupyter notebook notebooks/Lab3.ipynb   # ЛР 3 у вигляді ноутбука
+jupyter notebook notebooks/Lab4.ipynb   # ЛР 4: графіки та висновки
+python scripts/run_lab4.py        # ЛР 4: перегенерувати всі графіки у figures/
 python scripts/demo.py            # демо ЛР 2
 python -m unittest discover -s tests    # тести
 ```
@@ -70,6 +76,18 @@ python -m unittest discover -s tests    # тести
 - Аналіз: `describe`, розподіл категорій, фільтрація (`&`, `|`), сортування, групування за однією та двома змінними, зведена таблиця.
 - Збереження: `processed_routes.csv`, `grouped_country_type.csv` (+ перевірка читанням).
 - Інтеграція з ЛР 2: меню застосунку аналізує/експортує поточні маршрути через pandas, а тест звіряє pandas-розрахунки з методами класів `Route`.
+
+## ЛР 4: що реалізовано
+
+Ноутбук `notebooks/Lab4.ipynb` працює з очищеним датасетом із ЛР 3 і містить 19 графіків (PNG у `figures/`):
+
+- **Розподіли:** гістограми з KDE (лінійна й логарифмічна шкала), KDE за типами маршрутів.
+- **Box Plot і викиди:** загальні та за типами, IQR-аналіз у всій вибірці та в межах типу, обґрунтування, чому викиди не видаляються; Violin Plot.
+- **Категорії:** Count Plot, Pie Chart, Bar Chart із довірчими інтервалами.
+- **Взаємозв'язки:** Scatter Plot із трендовими лініями (у т.ч. log–log), матриця кореляцій + Heatmap, Pair Plot.
+- **Групування:** `groupby` за типом, країною, категорією протяжності; теплова карта «країна × тип».
+- **Час:** Line Plot кількості нових маршрутів (з ковзним середнім, піком і спадом) та середнього балу.
+- **Висновки** за кожним розділом і загальні; окремо зазначено, що датасет згенерований.
 
 ## Меню застосунку
 
