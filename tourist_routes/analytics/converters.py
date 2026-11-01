@@ -1,4 +1,4 @@
-"""Зв'язок ЛР 2 і ЛР 3: об'єкти Route -> pandas DataFrame."""
+"""Зв'язок core і analytics: об'єкти Route -> pandas DataFrame."""
 import pandas as pd
 
 from tourist_routes.analytics.features import add_features
@@ -6,7 +6,7 @@ from tourist_routes.core.config import MAX_RATING, MIN_RATING
 
 
 def routes_to_dataframe(routes):
-    """Перетворює список Route (з ЛР 2) на DataFrame тієї ж структури, що й датасет ЛР 3."""
+    """Перетворює список Route на DataFrame тієї ж структури, що й датасет маршрутів."""
     rows = []
     for route_id, route in enumerate(routes, start=1):
         data = route.to_dict()

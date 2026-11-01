@@ -1,4 +1,4 @@
-"""Створення нових стовпців (ЛР 3, розділ 5 завдання)."""
+"""Створення нових стовпців."""
 import numpy as np
 import pandas as pd
 
@@ -14,7 +14,7 @@ SEED = 42
 
 
 def estimated_duration_hours(df):
-    """Та сама логіка, що й estimated_duration_hours() у класах ЛР 2."""
+    """Та сама логіка, що й estimated_duration_hours() у класах моделей маршрутів."""
     speed = df["type"].astype(str).map(SPEED_KMH)
     mountain = (df["type"] == "CyclingRoute") & (df["bike_type"] == "гірський")
     speed = speed.where(~mountain, MOUNTAIN_BIKE_SPEED_KMH)
