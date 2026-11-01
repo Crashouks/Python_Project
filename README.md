@@ -10,7 +10,12 @@
 - **Аналітика (Pandas):** завантаження CSV, очищення, нові стовпці, групування, збереження результатів.
 - **Візуалізація:** 19 графіків (розподіли, викиди, категорії, кореляції, групування, динаміка в часі) з висновками.
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+- **REST API (FastAPI):** повний CRUD для маршрутів, пошук і фільтрація, база даних SQLite (SQLAlchemy), JWT-автентифікація, CORS, Swagger UI.
+>>>>>>> Stashed changes
+=======
+- **Telegram-бот:** каталог, пошук, фільтр за типом, топ за оцінкою, обране користувача; працює як клієнт REST API.
 - **REST API (FastAPI):** повний CRUD для маршрутів, пошук і фільтрація, база даних SQLite (SQLAlchemy), JWT-автентифікація, CORS, Swagger UI.
 >>>>>>> Stashed changes
 
@@ -35,7 +40,10 @@ Python_Project/
 │   ├── cli/                       # консольний інтерфейс
 │   │   └── app.py  menu.py  display.py  input_reader.py  route_form.py
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 │   ├── api/                       # REST API (FastAPI)
 │   │   ├── main.py                #   застосунок, CORS, підключення роутерів
 │   │   ├── config.py  database.py #   налаштування, підключення до БД (SQLAlchemy)
@@ -44,6 +52,17 @@ Python_Project/
 │   │   ├── models/                #   ORM-моделі: RouteRecord, User
 │   │   ├── schemas/               #   Pydantic-схеми: RouteCreate/RouteRead, UserCreate, Token
 │   │   └── routers/               #   auth.py, routes.py
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+│   ├── bot/                       # Telegram-бот (клієнт REST API)
+│   │   ├── app.py                 #   збирання й запуск, реєстрація обробників
+│   │   ├── handlers.py            #   команди, текст, кнопки, обробка помилок
+│   │   ├── keyboards.py           #   inline-клавіатури
+│   │   ├── formatting.py          #   форматування відповідей
+│   │   ├── api_client.py          #   взаємодія з REST API (httpx)
+│   │   ├── storage.py             #   обране користувачів (SQLite)
+│   │   └── config.py
 >>>>>>> Stashed changes
 │   └── analytics/                 # робота з даними (Pandas)
 │       ├── generate_dataset.py    #   генерація «брудного» CSV (NumPy)
@@ -64,6 +83,7 @@ Python_Project/
 │   ├── run_pipeline.py            # конвеєр очищення й аналізу даних
 │   ├── build_figures.py           # виконання ноутбука візуалізації, збереження графіків
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 │   └── generate_dataset.py        # перегенерація датасету
 └── tests/
     └── test_analytics.py
@@ -74,6 +94,15 @@ Python_Project/
     ├── test_analytics.py
     └── test_api.py
 >>>>>>> Stashed changes
+=======
+│   ├── run_api.py                 # запуск REST API (uvicorn)
+│   ├── run_bot.py                 # запуск Telegram-бота
+│   └── generate_dataset.py        # перегенерація датасету
+└── tests/
+    ├── test_analytics.py
+    ├── test_api.py
+    └── test_bot.py
+>>>>>>> Stashed changes
 ```
 
 ## Запуск
@@ -83,6 +112,10 @@ pip install -r requirements.txt
 
 python main.py                          # консольний застосунок (меню українською)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+uvicorn tourist_routes.api.main:app --reload   # REST API: http://127.0.0.1:8000/docs
+>>>>>>> Stashed changes
 =======
 uvicorn tourist_routes.api.main:app --reload   # REST API: http://127.0.0.1:8000/docs
 >>>>>>> Stashed changes
@@ -105,7 +138,10 @@ python -m unittest discover -s tests    # тести
 - Інтеграція: меню застосунку аналізує/експортує поточні маршрути через pandas, а тест звіряє pandas-розрахунки з методами класів `Route`.
 - Візуалізація: гістограми з KDE, Box/Violin Plot, Count/Pie/Bar, Scatter із трендами, матриця кореляцій, Pair Plot, теплові карти, Line Plot у часі; датасет згенеровано, тому деякі залежності в ньому свідомо слабкі — це зазначено у висновках.
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 
 ## REST API
 
@@ -134,4 +170,38 @@ curl -X POST http://127.0.0.1:8000/auth/register -H "Content-Type: application/j
 curl -X POST http://127.0.0.1:8000/auth/login -d "username=traveler&password=secret123"
 curl -X POST http://127.0.0.1:8000/routes -H "Authorization: Bearer <token>" -H "Content-Type: application/json" -d '{"type":"Route","name":"Прогулянка","country":"Україна","start_city":"Львів","length_km":5,"description":"Центр міста"}'
 ```
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+
+## Telegram-бот
+
+Бот допомагає обирати туристичні маршрути й працює як **клієнт REST API** (дані беруться з `/routes`).
+
+**Запуск**
+1. У Telegram напишіть [@BotFather](https://t.me/BotFather), створіть бота командою `/newbot` і скопіюйте токен.
+2. Запустіть API (`python -m uvicorn tourist_routes.api.main:app --reload`) в одному терміналі.
+3. У другому терміналі задайте токен і запустіть бота:
+
+```powershell
+$env:TELEGRAM_BOT_TOKEN = "ВАШ_ТОКЕН"      # PowerShell
+python -m tourist_routes.bot
+```
+(у cmd: `set TELEGRAM_BOT_TOKEN=ВАШ_ТОКЕН`, у Linux/macOS: `export TELEGRAM_BOT_TOKEN=...`)
+
+Необов'язкові змінні: `ROUTES_API_URL` (за замовчуванням `http://127.0.0.1:8000`), `ROUTES_API_TIMEOUT`, `BOT_DB_FILE`.
+
+**Команди й дії**
+
+| Команда / кнопка | Що робить |
+|---|---|
+| `/start` | привітання й головне меню (inline-кнопки) |
+| `/help` | перелік команд |
+| `/routes` | каталог маршрутів із кнопками для перегляду деталей |
+| `/search назва` або просто текст | пошук за назвою |
+| `/types` | вибір типу маршруту кнопками |
+| `/top` | найвище оцінені маршрути |
+| `/favorites`, кнопка «⭐ В обране» | обране користувача (зберігається в SQLite `data/bot.db`) |
+
+Обробка помилок: якщо API недоступне, не відповідає вчасно, повертає помилку або неповні дані — користувач отримує зрозуміле повідомлення, бот продовжує працювати. Невідомі команди й некоректні кнопки теж обробляються.
 >>>>>>> Stashed changes
