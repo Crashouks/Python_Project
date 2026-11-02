@@ -12,10 +12,16 @@
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
 - **REST API (FastAPI):** повний CRUD для маршрутів, пошук і фільтрація, база даних SQLite (SQLAlchemy), JWT-автентифікація, CORS, Swagger UI.
 >>>>>>> Stashed changes
 =======
+- **Telegram-бот:** каталог, пошук, фільтр за типом, топ за оцінкою, обране користувача; працює як клієнт REST API.
+- **REST API (FastAPI):** повний CRUD для маршрутів, пошук і фільтрація, база даних SQLite (SQLAlchemy), JWT-автентифікація, CORS, Swagger UI.
+>>>>>>> Stashed changes
+=======
+- **Веб-парсинг:** універсальний клас `WebScraper` + `BooksScraper` (books.toscrape.com): пагінація, повторні спроби, логування, багатопотоковий збір, збереження в TXT/CSV/JSON.
 - **Telegram-бот:** каталог, пошук, фільтр за типом, топ за оцінкою, обране користувача; працює як клієнт REST API.
 - **REST API (FastAPI):** повний CRUD для маршрутів, пошук і фільтрація, база даних SQLite (SQLAlchemy), JWT-автентифікація, CORS, Swagger UI.
 >>>>>>> Stashed changes
@@ -43,6 +49,7 @@ Python_Project/
 │   │   └── exceptions.py
 │   ├── storage/
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 │   │   └── json_storage.py        # збереження/завантаження JSON
 │   ├── cli/                       # консольний інтерфейс
 │   │   └── app.py  menu.py  display.py  input_reader.py  route_form.py
@@ -52,6 +59,8 @@ Python_Project/
 =======
 >>>>>>> Stashed changes
 =======
+=======
+>>>>>>> Stashed changes
 │   │   ├── json_storage.py        # збереження/завантаження маршрутів у JSON
 │   │   └── data_manager.py        # JSON: користувачі, вибірка за віком, обмін маршрутами
 │   ├── utils/
@@ -59,6 +68,9 @@ Python_Project/
 │   │   └── bank_account.py        # BankAccount: deposit, withdraw, get_balance
 │   ├── cli/                       # консольний інтерфейс
 │   │   └── app.py  menu.py  display.py  input_reader.py  route_form.py
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 │   ├── api/                       # REST API (FastAPI)
 │   │   ├── main.py                #   застосунок, CORS, підключення роутерів
@@ -70,8 +82,14 @@ Python_Project/
 │   │   └── routers/               #   auth.py, routes.py
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes
 =======
+=======
+│   ├── scraper/                   # парсинг HTML (requests + BeautifulSoup)
+│   │   ├── web_scraper.py         #   універсальний клас WebScraper
+│   │   └── books_scraper.py       #   парсер каталогу книг
+>>>>>>> Stashed changes
 =======
 │   ├── scraper/                   # парсинг HTML (requests + BeautifulSoup)
 │   │   ├── web_scraper.py         #   універсальний клас WebScraper
@@ -86,6 +104,9 @@ Python_Project/
 │   │   ├── storage.py             #   обране користувачів (SQLite)
 │   │   └── config.py
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -107,6 +128,7 @@ Python_Project/
 │   ├── demo.py                    # демо роботи з класами маршрутів
 │   ├── run_pipeline.py            # конвеєр очищення й аналізу даних
 │   ├── build_figures.py           # виконання ноутбука візуалізації, збереження графіків
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
@@ -135,10 +157,20 @@ Python_Project/
 │   ├── run_scraper.py             # парсинг каталогу книг -> data/scraped/
 │   └── generate_dataset.py        # перегенерація датасету
 └── tests/
+=======
+│   ├── run_api.py                 # запуск REST API (uvicorn)
+│   ├── run_bot.py                 # запуск Telegram-бота
+│   ├── run_scraper.py             # парсинг каталогу книг -> data/scraped/
+│   └── generate_dataset.py        # перегенерація датасету
+└── tests/
+>>>>>>> Stashed changes
     ├── test_math_utils.py  test_bank_account.py  test_data_manager.py
     ├── test_core.py           # моделі, валідатори, менеджер, статистика, JsonStorage
     ├── test_analytics.py  test_api.py  test_bot.py  test_scraper.py
     └── pytest_style/          # ті самі тести у стилі pytest (parametrize)
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 ```
 
@@ -151,6 +183,10 @@ python main.py                          # консольний застосун�
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+uvicorn tourist_routes.api.main:app --reload   # REST API: http://127.0.0.1:8000/docs
+>>>>>>> Stashed changes
 =======
 uvicorn tourist_routes.api.main:app --reload   # REST API: http://127.0.0.1:8000/docs
 >>>>>>> Stashed changes
@@ -166,7 +202,13 @@ python scripts/build_figures.py         # перегенерувати всі г
 jupyter notebook notebooks/data_processing.ipynb
 jupyter notebook notebooks/data_visualization.ipynb
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 python -m unittest discover -s tests    # тести
+=======
+python -m unittest discover -s tests    # усі unittest-тести
+python -m pytest                        # те саме через pytest (+ тести з tests/pytest_style)
+python -m pytest --cov=tourist_routes --cov-report=term-missing   # покриття
+>>>>>>> Stashed changes
 =======
 python -m unittest discover -s tests    # усі unittest-тести
 python -m pytest                        # те саме через pytest (+ тести з tests/pytest_style)
@@ -187,7 +229,10 @@ python -m pytest --cov=tourist_routes --cov-report=term-missing   # покрит
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 =======
@@ -222,8 +267,11 @@ curl -X POST http://127.0.0.1:8000/routes -H "Authorization: Bearer <token>" -H 
 ```
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 
@@ -258,8 +306,11 @@ python -m tourist_routes.bot
 
 Обробка помилок: якщо API недоступне, не відповідає вчасно, повертає помилку або неповні дані — користувач отримує зрозуміле повідомлення, бот продовжує працювати. Невідомі команди й некоректні кнопки теж обробляються.
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes
 =======
+=======
+>>>>>>> Stashed changes
 
 ## Модульні тести
 
@@ -311,4 +362,7 @@ python scripts/run_scraper.py --min-price 30 --min-rating 4
 | Високий | клас `WebScraper` (універсальний): логування успіхів і помилок, повтори запитів, `ThreadPoolExecutor`, `save_json` / `save_csv` / `save_text`; тести в `tests/test_scraper.py` (без доступу до мережі, через підроблену сесію) |
 
 `WebScraper` не прив'язаний до конкретного сайту: `extract_items(soup, селектор_запису, {поле: (css, атрибут)})` дозволяє описати структуру будь-якої сторінки, а `BooksScraper` лише додає розбір книжок і обхід категорій.
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
