@@ -1,0 +1,11 @@
+[run]
+source = tourist_routes
+omit =
+    tourist_routes/cli/*
+    tourist_routes/api/*
+    tourist_routes/bot/*
+    tourist_routes/analytics/*
+
+[report]
+show_missing = True
+fail_under = 80

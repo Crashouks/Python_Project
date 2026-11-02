@@ -3,6 +3,10 @@
 __pycache__/
 data/api.db
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+data/bot.db
+>>>>>>> Stashed changes
 =======
 data/bot.db
 >>>>>>> Stashed changes

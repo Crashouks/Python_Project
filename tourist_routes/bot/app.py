@@ -53,6 +53,12 @@ def build_application(token: str, api_client=None, storage=None) -> Application:
 
 def main():
     logging.basicConfig(format="%(asctime)s %(levelname)s %(name)s: %(message)s", level=logging.INFO)
+<<<<<<< Updated upstream
+=======
+    # httpx на рівні INFO друкує повні URL запитів, а в них є токен бота.
+    logging.getLogger("httpx").setLevel(logging.WARNING)
+    logging.getLogger("httpcore").setLevel(logging.WARNING)
+>>>>>>> Stashed changes
     if not config.BOT_TOKEN:
         print("Не задано токен бота. Встановіть змінну середовища TELEGRAM_BOT_TOKEN "
               "(токен видає @BotFather у Telegram).")
