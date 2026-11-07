@@ -73,6 +73,30 @@ class StorageTests(unittest.TestCase):
         self.assertEqual(again.list_ids(5), [7])
 
 
+class ApplicationTests(unittest.TestCase):
+    def test_application_registers_bot_commands_and_handlers(self):
+        from tourist_routes.bot.app import build_application
+
+        application = build_application(
+            "123456:ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghi",
+            api_client=object(),
+            storage=object(),
+        )
+
+        self.assertIn("api", application.bot_data)
+        self.assertIn("storage", application.bot_data)
+        registered_commands = {
+            command
+            for handlers in application.handlers.values()
+            for handler in handlers
+            for command in getattr(handler, "commands", ())
+        }
+        self.assertEqual(
+            registered_commands,
+            {"start", "help", "routes", "search", "types", "top", "favorites"},
+        )
+
+
 @unittest.skipUnless(importlib.util.find_spec("httpx"), "потрібен httpx")
 class ApiClientTests(unittest.IsolatedAsyncioTestCase):
     def make_client(self, handler):
